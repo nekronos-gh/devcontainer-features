@@ -38,24 +38,14 @@ jobs:
       - test
     runs-on: ubuntu-latest
     permissions:
-      contents: read
       packages: write
+      contents: write
     steps:
       - uses: actions/checkout@v4
-      - name: Login to GHCR
-        uses: docker/login-action@v3
+      - name: Publish
+        uses: devcontainers/action@v1
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - uses: devcontainers-community/publish-feature@v1
-        with:
-          path: ./src/nekronos-workbench
-          files: |
-            devcontainer-feature.json
-            install.sh
-            NOTES.md
-            post_create.sh
-            scripts/**
-            bundles/**
-          image: ghcr.io/${{ github.repository }}/*
+          publish-features: "true"
+          base-path-to-features: "./src"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
