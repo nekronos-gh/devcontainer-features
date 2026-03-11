@@ -1,13 +1,5 @@
 install_oh_my_zsh() {
-	local user="${_REMOTE_USER:-nekronos}"
-	local home="/home/$user"
-
-	if ! id "$user" >/dev/null 2>&1; then
-		user="root"
-		home="/root"
-	fi
-
-	if [ ! -d "$home/.oh-my-zsh" ]; then
+	if [ ! -d "$TARGET_HOME/.oh-my-zsh" ]; then
 		run_as_user "curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash -s -- --unattended"
 	fi
 
@@ -16,7 +8,7 @@ install_oh_my_zsh() {
 		local zsh_path
 		zsh_path="$(command -v zsh)"
 		if have chsh; then
-			chsh -s "$zsh_path" "$user" || true
+			chsh -s "$zsh_path" "$TARGET_USER" || true
 		else
 			# Fallback for systems without chsh (like Alpine)
 			if grep -q "^${user}:" /etc/passwd; then
@@ -27,16 +19,8 @@ install_oh_my_zsh() {
 }
 
 configure_zsh() {
-	local user="${_REMOTE_USER:-nekronos}"
-	local home="/home/$user"
-
-	if ! id "$user" >/dev/null 2>&1; then
-		user="root"
-		home="/root"
-	fi
-
-	local ZSHRC="$home/.zshrc"
-	local plugin_dir="$home/.oh-my-zsh/custom/plugins"
+	local ZSHRC="$TARGET_HOME/.zshrc"
+	local plugin_dir="$TARGET_HOME/.oh-my-zsh/custom/plugins"
 
 	run_as_user "mkdir -p '$plugin_dir'"
 

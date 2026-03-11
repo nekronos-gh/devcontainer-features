@@ -10,7 +10,7 @@ for tool in pyright-langserver ruff debugpy; do
 		echo "✓ mason: $tool"
 	else
 		echo "✗ mason: $tool not found"
-		return -1
+		return 1
 	fi
 done
 

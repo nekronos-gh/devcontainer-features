@@ -35,6 +35,9 @@ source "$SCRIPT_DIR/scripts/zsh.sh"
 source "$SCRIPT_DIR/scripts/nvim.sh"
 source "$SCRIPT_DIR/scripts/opencode.sh"
 
+TARGET_USER="${_REMOTE_USER:-${USERNAME:-root}}"
+TARGET_HOME="$(get_user_home "$TARGET_USER")"
+
 require_root
 
 # Base prerequisites

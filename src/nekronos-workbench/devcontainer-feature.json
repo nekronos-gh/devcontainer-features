@@ -1,6 +1,6 @@
 {
   "id": "nekronos-workbench",
-  "version": "1.0.3",
+  "version": "1.0.0",
   "name": "Nekronos Workbench",
   "description": "Personal workspace bootstrap",
   "options": {

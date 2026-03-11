@@ -9,16 +9,10 @@ append_if_missing() {
 }
 
 run_as_user() {
-	local user="${_REMOTE_USER:-nekronos}"
-	# if user doesn't exist, fallback to root
-	if ! id "$user" >/dev/null 2>&1; then
-		user="root"
-	fi
-
-	if [ "$(id -un)" = "$user" ]; then
+	if [ "$(id -un)" = "$TARGET_USER" ]; then
 		bash -lc "$1"
 	else
-		su "$user" -c "$1"
+		su "$TARGET_USER" -c "$1"
 	fi
 }
 
@@ -98,4 +92,18 @@ ensure_tool() {
 			install_packages "$@"
 		fi
 	fi
+}
+
+get_user_home() {
+	local user="$1"
+	local home_dir
+	home_dir="$(getent passwd "$user" | cut -d: -f6 2>/dev/null || true)"
+	if [ -z "$home_dir" ]; then
+		if [ "$user" = "root" ]; then
+			home_dir="/root"
+		else
+			home_dir="/home/$user"
+		fi
+	fi
+	printf '%s\n' "$home_dir"
 }

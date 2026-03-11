@@ -22,22 +22,13 @@ install_nvim() {
 }
 
 configure_nvim() {
-	local user="${_REMOTE_USER:-nekronos}"
-	local home="/home/$user"
-
-	# if user doesn't exist, we fallback to root
-	if ! id "$user" >/dev/null 2>&1; then
-		user="root"
-		home="/root"
-	fi
-
 	local repo="https://github.com/nekronos-gh/nvim"
 	local branch="main"
 
-	run_as_user "mkdir -p '$home/.config'"
+	run_as_user "mkdir -p '$TARGET_HOME/.config'"
 
-	if [ ! -d "$home/.config/nvim/.git" ]; then
-		run_as_user "git clone --depth 1 --branch '$branch' '$repo' '$home/.config/nvim'"
+	if [ ! -d "$TARGET_HOME/.config/nvim/.git" ]; then
+		run_as_user "git clone --depth 1 --branch '$branch' '$repo' '$TARGET_HOME/.config/nvim'"
 	fi
 
 	run_as_user "nvim --headless '+Lazy! sync' +qa" || true

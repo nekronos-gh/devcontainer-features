@@ -1,13 +1,5 @@
 configure_opencode() {
-	local user="${_REMOTE_USER:-nekronos}"
-	local home="/home/$user"
-
-	if ! id "$user" >/dev/null 2>&1; then
-		user="root"
-		home="/root"
-	fi
-
-	local zshrc="$home/.zshrc"
+	local zshrc="$TARGET_HOME/.zshrc"
 
 	run_as_user "curl -fsSL https://opencode.ai/install | bash"
 
