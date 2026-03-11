@@ -25,10 +25,10 @@ configure_nvim() {
 	local repo="https://github.com/nekronos-gh/nvim"
 	local branch="main"
 
-	"mkdir -p '$TARGET_HOME/.config'"
+	mkdir -p "$TARGET_HOME/.config"
 
 	if [ ! -d "$TARGET_HOME/.config/nvim/.git" ]; then
-		"git clone --depth 1 --branch '$branch' '$repo' '$TARGET_HOME/.config/nvim'"
+		git clone --depth 1 --branch "$branch" "$repo" "$TARGET_HOME/.config/nvim"
 	fi
 
 	run_as_user "nvim --headless '+Lazy! sync' +qa" || true
