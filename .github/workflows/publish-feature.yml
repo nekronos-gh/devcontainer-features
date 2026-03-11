@@ -51,4 +51,11 @@ jobs:
       - uses: devcontainers-community/publish-feature@v1
         with:
           path: ./src/nekronos-workbench
+          files: |
+            devcontainer-feature.json
+            install.sh
+            NOTES.md
+            post_create.sh
+            scripts/**
+            bundles/**
           image: ghcr.io/${{ github.repository }}/*
