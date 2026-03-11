@@ -24,7 +24,7 @@ jobs:
           # dnf
           - fedora:latest
           # yum
-          - centos:7
+          - rockylinux:8
           # pacman
           - archlinux:latest
     steps:
