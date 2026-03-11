@@ -1,0 +1,24 @@
+name: Publish feature
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: devcontainers-community/publish-feature@v1
+        with:
+          path: ./src/nekronos-workbench
+          image: ghcr.io/${{ github.repository }}/*
