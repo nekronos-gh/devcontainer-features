@@ -1,17 +1,53 @@
+install_oh_my_zsh() {
+	local user="${_REMOTE_USER:-nekronos}"
+	local home="/home/$user"
+
+	if ! id "$user" >/dev/null 2>&1; then
+		user="root"
+		home="/root"
+	fi
+
+	if [ ! -d "$home/.oh-my-zsh" ]; then
+		run_as_user "curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | bash -s -- --unattended"
+	fi
+
+	# Set default shell to zsh for the user
+	if have zsh; then
+		local zsh_path
+		zsh_path="$(command -v zsh)"
+		if have chsh; then
+			chsh -s "$zsh_path" "$user" || true
+		else
+			# Fallback for systems without chsh (like Alpine)
+			if grep -q "^${user}:" /etc/passwd; then
+				sed -i -e "/^${user}:/ s|:[^:]*$|:${zsh_path}|" /etc/passwd || true
+			fi
+		fi
+	fi
+}
+
 configure_zsh() {
-  local user="${_REMOTE_USER:-nekronos}"
-  local home="/home/$user"
+	local user="${_REMOTE_USER:-nekronos}"
+	local home="/home/$user"
 
-  local ZSHRC="$home/.zshrc"
-  local plugin_dir="$home/.oh-my-zsh/custom/plugins"
+	if ! id "$user" >/dev/null 2>&1; then
+		user="root"
+		home="/root"
+	fi
 
-  mkdir -p "$plugin_dir"
+	local ZSHRC="$home/.zshrc"
+	local plugin_dir="$home/.oh-my-zsh/custom/plugins"
 
-  [ -d "$plugin_dir/zsh-autosuggestions/.git" ] ||
-    run_as_user "git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions '$plugin_dir/zsh-autosuggestions'"
+	run_as_user "mkdir -p '$plugin_dir'"
 
-  [ -d "$plugin_dir/zsh-syntax-highlighting/.git" ] ||
-    run_as_user "git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting '$plugin_dir/zsh-syntax-highlighting'"
+	if [ ! -d "$plugin_dir/zsh-autosuggestions/.git" ]; then
+		run_as_user "git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions '$plugin_dir/zsh-autosuggestions'"
+	fi
 
-  append_if_missing "$ZSHRC" 'plugins=(git docker python zsh-autosuggestions zsh-syntax-highlighting)'
+	if [ ! -d "$plugin_dir/zsh-syntax-highlighting/.git" ]; then
+		run_as_user "git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting '$plugin_dir/zsh-syntax-highlighting'"
+	fi
+
+	run_as_user "touch '$ZSHRC'"
+	append_if_missing "$ZSHRC" 'plugins=(git docker python zsh-autosuggestions zsh-syntax-highlighting)'
 }

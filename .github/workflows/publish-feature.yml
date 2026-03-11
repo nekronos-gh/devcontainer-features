@@ -16,9 +16,17 @@ jobs:
     strategy:
       matrix:
         baseImage:
+          # apt-get
           - debian:latest
           - ubuntu:latest
-          - mcr.microsoft.com/devcontainers/base:ubuntu
+          # apk
+          - alpine:latest
+          # dnf
+          - fedora:latest
+          # yum
+          - centos:7
+          # pacman
+          - archlinux:latest
     steps:
       - uses: actions/checkout@v4
       - name: Install devcontainer CLI

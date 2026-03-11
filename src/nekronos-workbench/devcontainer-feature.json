@@ -6,25 +6,11 @@
   "options": {
     "bundles": {
       "type": "string",
-      "description": "Comma-separated list of bundles to install (e.g., 'core,python,latex')",
+      "description": "Comma-separated list of bundles to install",
       "default": ""
     }
   },
   "documentationURL": "https://github.com/nekronos-gh/devcontainer-features",
-  "dependsOn": {
-    "ghcr.io/devcontainers/features/common-utils:2": {
-      "installZsh": true,
-      "installOhMyZsh": true,
-      "configureZshAsDefaultShell": true,
-      "username": "automatic"
-    },
-    "ghcr.io/rapidsai/devcontainers/features/gcc:26.4.0": {},
-    "ghcr.io/devcontainers-contrib/features/ripgrep:1": {},
-    "ghcr.io/devcontainers-contrib/features/fzf:1": {},
-    "ghcr.io/duduribeiro/devcontainer-features/neovim:1": {
-      "version": "nightly"
-    }
-  },
   "installsAfter": [
     "ghcr.io/devcontainers/features/git"
   ]
