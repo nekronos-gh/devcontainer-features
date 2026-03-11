@@ -1,0 +1,10 @@
+{
+  "python_bundle": {
+    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+    "features": {
+      "nekronos-workbench": {
+        "bundles": "python"
+      }
+    }
+  }
+}

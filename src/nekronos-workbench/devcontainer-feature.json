@@ -3,6 +3,13 @@
   "version": "1.0.0",
   "name": "Nekronos Workbench",
   "description": "Personal workspace bootstrap",
+  "options": {
+    "bundles": {
+      "type": "string",
+      "description": "Comma-separated list of bundles to install (e.g., 'core,python,latex')",
+      "default": ""
+    }
+  },
   "documentationURL": "https://github.com/nekronos-gh/devcontainer-features",
   "dependsOn": {
     "ghcr.io/devcontainers/features/common-utils:2": {

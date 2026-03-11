@@ -3,7 +3,7 @@ have() {
 }
 
 append_if_missing() {
-  grep -qxF "$2" "$1" || echo "$2" >> "$1"
+  grep -qxF "$2" "$1" || echo "$2" >>"$1"
 }
 
 run_as_user() {
