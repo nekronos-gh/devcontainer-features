@@ -10,7 +10,7 @@ To use this feature in your own Dev Container project, add it to your `devcontai
 {
   "features": {
     "ghcr.io/nekronos-gh/devcontainer-features/nekronos-workbench:1": {
-      "bundles": "python"
+      "bundles": "python,latex"
     }
   }
 }
@@ -19,3 +19,5 @@ To use this feature in your own Dev Container project, add it to your `devcontai
 ## Available Bundles
 
 - `python`: Installs Python 3, `uv`, and developer tools (`pyright`, `ruff`, `debugpy`).
+- `latex`: Installs LaTeX dependencies, useful libraries (`texlive-full`),
+  and developer tools for Neovim (`texlab`, `latexindent`, `chktex`).

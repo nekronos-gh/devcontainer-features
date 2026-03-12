@@ -12,7 +12,7 @@ run_as_user() {
 	if [ "$(id -un)" = "$TARGET_USER" ]; then
 		bash -lc "$1"
 	else
-		su "$TARGET_USER" -c "$1"
+		su "$TARGET_USER" --login -c "$1"
 	fi
 }
 

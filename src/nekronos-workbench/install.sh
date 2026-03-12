@@ -27,7 +27,7 @@ fi
 
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+export SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 source "$SCRIPT_DIR/scripts/utils.sh"
 source "$SCRIPT_DIR/scripts/bin_utils.sh"
@@ -35,8 +35,8 @@ source "$SCRIPT_DIR/scripts/zsh.sh"
 source "$SCRIPT_DIR/scripts/nvim.sh"
 source "$SCRIPT_DIR/scripts/opencode.sh"
 
-TARGET_USER="${_REMOTE_USER:-${USERNAME:-root}}"
-TARGET_HOME="$(get_user_home "$TARGET_USER")"
+export TARGET_USER="${_REMOTE_USER:-${USERNAME:-root}}"
+export TARGET_HOME="$(get_user_home "$TARGET_USER")"
 
 require_root
 

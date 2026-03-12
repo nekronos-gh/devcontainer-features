@@ -10,5 +10,5 @@ apk) install_packages python3 py3-pip python3-dev gcc musl-dev nodejs npm ;;
 pacman) install_packages python python-pip nodejs npm ;;
 esac
 
-# Install pyright, ruff, debugpy via Mason into Neovim
-run_as_user "nvim --headless '+MasonInstall pyright ruff debugpy' -c 'qa'" || true
+run_as_user "install -m 0644 '$SCRIPT_DIR/bundles/python.lua' '$TARGET_HOME/.config/nvim/lua/bundles/python.lua'"
+run_as_user "nvim --headless '+MasonToolsInstallSync' -c 'qa'"

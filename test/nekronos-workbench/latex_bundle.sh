@@ -1,15 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-command -v python3
-command -v pip3
-command -v node
-command -v npm
+command -v pdflatex
+command -v latexmk
+command -v biber
+command -v chktex
 
-declare -a tools=("pyright-langserver"
-	"ruff-lsp" "black"
-	"isort" "ruff"
-	"mypy" "pylint" "debugpy")
+declare -a tools=("texlab" "latexindent")
 
 for tool in "${tools[@]}"; do
 	local_bin="/home/${_REMOTE_USER:-vscode}/.local/share/nvim/mason/bin/$tool"
@@ -21,4 +18,4 @@ for tool in "${tools[@]}"; do
 	fi
 done
 
-echo "Python bundle installed correctly"
+echo "LaTeX bundle installed correctly"
