@@ -8,4 +8,6 @@ without notice and are tailored to my specific workflow.
 
 ## Features
 
-- [Nekronos Workbench](/src/nekronos-workbench/NOTES.md) - Personal workspace bootstrap.
+- [Nekronos Workbench](./src/nekronos-workbench/NOTES.md) - Personal workspace bootstrap.
+
+![Chad](./fig/chad.png)
